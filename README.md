@@ -1,7 +1,14 @@
 # LeetCode Problem Solver Bot
 
 ## Overview
-AI-powered bot solving LeetCode problems using advanced LLM techniques.
+LeetCode Problem Solver Bot is an advanced AI-powered tool designed to solve algorithmic coding problems from LeetCode. It utilizes cutting-edge Language Learning Models (LLMs), contextual search capabilities, and structured workflows to generate optimal solutions with step-by-step validation.
+
+### Key Features:
+- **Problem Context Retrieval:** Uses Tavily to search for relevant contextual data.
+- **Solution Strategy Generation:** Develops an optimal approach using OpenAI's GPT-4 models.
+- **Python Code Generation:** Converts the strategy into clean, production-ready Python code.
+- **Solution Validation:** Employs LLM-based validation to ensure correctness, efficiency, and adherence to coding standards.
+- **Iterative Workflow:** Automatically refines the solution if validation fails, ensuring robustness.
 
 ## Prerequisites
 - Python 3.12+
@@ -50,14 +57,8 @@ pip install -r requirements.txt
 
 ### 4. Problem Description Format
 
-Use this format in `main()`:
-```python
-problem_description = """
-    Problem Name: Detailed problem description 
-    Provide comprehensive problem statement."""
-```
+Define a problem description in the following format in `main()`:
 
-#### Example
 ```python
 problem_description = """
     Merge k Sorted Lists: You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
@@ -70,16 +71,53 @@ problem_description = """
 python main.py
 ```
 
-### 6. Langsmith output (Optional)
-You can see your LLM traces in Langsmith and copy the output python code from last validate component
+### Optional: LangSmith Integration
+If enabled, the LangSmith platform provides detailed tracing and debugging for the LLM-based workflows, including intermediate outputs and validation feedback.
 
-## Features
-- AI-powered problem solving
-- Adaptive solution generation
-- LLM-based validation
-- Context retrieval with Tavily
+## Workflow Architecture
+
+The bot's architecture is built around a structured LangGraph workflow with the following key steps:
+
+1. **Search for Problem Context**  
+   Queries Tavily to gather relevant resources and insights based on the problem description.
+
+2. **Generate Solution Strategy**  
+   Uses OpenAI's GPT-4 models to develop a comprehensive solution plan, which includes:
+   - Algorithm selection
+   - Data structure choices
+   - Implementation steps
+   - Time and space complexity analysis
+
+3. **Code Generation**  
+   Converts the solution strategy into clean, production-ready Python code. The generated code includes:
+   - Proper type hints
+   - Comprehensive docstrings
+   - Handling of edge cases
+   - Optimized implementation
+
+4. **Validate Solution**  
+   Employs an LLM-powered validation process to:
+   - Verify correctness against predefined criteria
+   - Test handling of edge cases
+   - Ensure adherence to coding standards (e.g., type hints, docstrings)
+   - Assess time and space complexity
+
+5. **Iterative Refinement**  
+   If the validation fails, the workflow refines the solution by revisiting earlier steps, ensuring a robust final output.
+
+### Workflow Diagram
+The workflow progresses as follows:
+- **Entry Point:** `search` (Problem Context Retrieval)
+- **Flow:** `search → strategy → code_gen → validate`
+- **Conditional Routing:**  
+  - If validation passes, the workflow ends.  
+  - If validation fails, it loops back to the `strategy` step for refinement.
+
+This iterative process ensures that the final solution is accurate, efficient, and production-ready.
+
 
 ## Troubleshooting
-- Verify API keys
-- Check internet connection
-- Ensure Python dependencies are installed
+- Ensure your API keys are correctly configured in the .env file.
+- Verify the internet connection for accessing external APIs.
+- Check Python version compatibility (Python 3.12+ is required).
+- Reinstall dependencies using pip install -r requirements.txt.
