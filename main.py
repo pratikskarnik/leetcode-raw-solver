@@ -46,7 +46,7 @@ class LeetCodeSolverBot:
     def _search_problem_context(self, state: SolverState) -> Dict[str, Any]:
         """Use Tavily to search for problem-solving context"""
         search_results = self.tavily_client.search(
-            query=state["problem_description"], max_results=5
+            query=state["problem_description"].split(":")[0], max_results=5
         )
         return {"search_context": search_results}
 
